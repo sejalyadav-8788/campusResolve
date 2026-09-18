@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusResolve - Student Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #1e293b;
+        }
+
+        .header {
+            background: #1e293b;
+            color: white;
+            padding: 20px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .logout {
+            background: #ef4444;
+            border: none;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            margin-top: 7px;
+        }
+
+        .form-section,
+        .complaints-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .submit-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .submit-btn:hover {
+            background: #334155;
+        }
+
+        .complaint {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .complaint h3 {
+            margin-bottom: 10px;
+        }
+
+        .complaint p {
+            margin: 7px 0;
+            color: #475569;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #e2e8f0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <h1>CampusResolve</h1>
+
+    <button class="logout" onclick="logout()">
+        Logout
+    </button>
+
+</header>
+
+<main class="container">
+
+    <div class="welcome">
+        <h2>Student Dashboard</h2>
+        <button onclick="logout()">Logout</button>
+        <p>
+            Report your campus concerns and track their resolution.
+        </p>
+    </div>
+
+
+    <!-- Submit Complaint -->
+
+    <section class="form-section">
+
+        <h2>Submit a Complaint</h2>
+
+        <form id="complaintForm">
+
+            <div class="form-group">
+                <label>Title</label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter complaint title"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="description"
+                    placeholder="Describe your issue"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <select id="category" required>
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="ACADEMICS">
+                        Academics
+                    </option>
+
+                    <option value="INFRASTRUCTURE">
+                        Infrastructure
+                    </option>
+
+                    <option value="HOSTEL">
+                        Hostel
+                    </option>
+
+                    <option value="EXAMINATION">
+                        Examination
+                    </option>
+
+                    <option value="LIBRARY">
+                        Library
+                    </option>
+
+                    <option value="IT">
+                        IT
+                    </option>
+
+                    <option value="TRANSPORTATION">
+                        Transportation
+                    </option>
+
+                    <option value="SAFETY">
+                        Safety
+                    </option>
+
+                    <option value="OTHER">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Subcategory</label>
+
+                <input
+                    type="text"
+                    id="subcategory"
+                    placeholder="Example: WiFi, classroom, exam result"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Priority</label>
+
+                <select id="priority" required>
+
+                    <option value="">
+                        Select priority
+                    </option>
+
+                    <option value="LOW">
+                        Low
+                    </option>
+
+                    <option value="MEDIUM">
+                        Medium
+                    </option>
+
+                    <option value="HIGH">
+                        High
+                    </option>
+
+                    <option value="URGENT">
+                        Urgent
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Department</label>
+
+                <input
+                    type="text"
+                    id="department"
+                    placeholder="Example: CSE"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Example: Block A / Hostel"
+                    required
+                >
+
+            </div>
+
+
+            <div class="checkbox-group">
+
+                <input
+                    type="checkbox"
+                    id="sensitive"
+                >
+
+                <label for="sensitive">
+                    This is a sensitive complaint
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Submit Complaint
+            </button>
+
+            <div id="message"></div>
+
+        </form>
+
+    </section>
+
+
+    <!-- My Complaints -->
+
+    <section class="complaints-section">
+
+        <h2>My Complaints</h2>
+        <button onclick="loadComplaints()">Refresh Complaints</button>
+
+        <div id="complaintList">
+            Loading complaints...
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const API_URL = "http://localhost:8080";
+
+    const token = localStorage.getItem("studentToken");
+
+
+    // Check login
+
+    if (!token) {
+
+        alert("Please login first.");
+
+        window.location.href = "login.html";
+
+    }
+
+
+    // Submit complaint
+
+    document.getElementById("complaintForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const message =
+                document.getElementById("message");
+
+
+            const complaintData = {
+
+                title:
+                    document.getElementById("title").value,
+
+                description:
+                    document.getElementById("description").value,
+
+                category:
+                    document.getElementById("category").value,
+
+                subcategory:
+                    document.getElementById("subcategory").value,
+
+                priority:
+                    document.getElementById("priority").value,
+
+                sensitive:
+                    document.getElementById("sensitive").checked,
+
+                department:
+                    document.getElementById("department").value,
+
+                location:
+                    document.getElementById("location").value
+
+            };
+
+
+            try {
+
+                const response = await fetch(
+                    API_URL + "/api/complaints",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                "Bearer " + token
+
+                        },
+
+                        body:
+                            JSON.stringify(complaintData)
+
+                    }
+                );
+
+
+                if (!response.ok) {
+
+                    message.style.color = "red";
+
+                    message.innerText =
+                        "Failed to submit complaint.";
+
+                    return;
+
+                }
+
+
+                message.style.color = "green";
+
+                message.innerText =
+                    "Complaint submitted successfully!";
+
+
+                document.getElementById("complaintForm")
+                    .reset();
+
+
+                loadComplaints();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.style.color = "red";
+
+                message.innerText =
+                    "Cannot connect to server.";
+
+            }
+
+        });
+
+
+    // Load student's complaints
+
+    async function loadComplaints() {
+
+        try {
+
+            const response = await fetch(
+                API_URL + "/api/complaints/my",
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    }
+
+                }
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load complaints"
+                );
+
+            }
+
+
+            const complaints =
+                await response.json();
+
+
+            const complaintList =
+                document.getElementById(
+                    "complaintList"
+                );
+
+
+            if (complaints.length === 0) {
+
+                complaintList.innerHTML =
+                    "<p>No complaints submitted yet.</p>";
+
+                return;
+
+            }
+
+
+            complaintList.innerHTML =
+                complaints.map(c => `
+
+                    <div class="complaint">
+
+                        <h3>${c.title}</h3>
+
+                        <p>
+                            ${c.description}
+                        </p>
+
+                        <p>
+                            <strong>Category:</strong>
+                            ${c.category}
+                        </p>
+
+                        <p>
+                            <strong>Priority:</strong>
+                            ${c.priority}
+                        </p>
+
+                        <p>
+                            <strong>Department:</strong>
+                            ${c.department}
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            ${c.location}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+
+                            <span class="status">
+                                ${c.status}
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Deadline:</strong>
+                            ${c.deadline
+                                ? new Date(c.deadline)
+                                    .toLocaleString()
+                                : "Not assigned"
+                            }
+                        </p>
+
+                    </div>
+
+                `).join("");
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            document.getElementById(
+                "complaintList"
+            ).innerText =
+                "Unable to load complaints.";
+
+        }
+
+    }
+
+
+    // Logout
+
+    function logout() {
+
+        localStorage.removeItem("studentToken");
+
+        window.location.href = "login.html";
+
+    }
+
+
+    // Load complaints when page opens
+
+    loadComplaints();
+    function logout() {
+    localStorage.removeItem("studentToken");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusResolve - Admin Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        .header {
+            background: #1e293b;
+            color: white;
+            padding: 20px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .header span {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .container {
+            padding: 35px;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #64748b;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .total {
+            border-left: 5px solid #334155;
+        }
+
+        .open {
+            border-left: 5px solid #f59e0b;
+        }
+
+        .assigned {
+            border-left: 5px solid #3b82f6;
+        }
+
+        .escalated {
+            border-left: 5px solid #ef4444;
+        }
+
+        .resolved {
+            border-left: 5px solid #22c55e;
+        }
+
+        .section {
+            margin-top: 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #64748b;
+        }
+        .complaint {
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.complaint h3 {
+    margin-bottom: 12px;
+}
+
+.complaint p {
+    margin: 7px 0;
+    color: #475569;
+}
+
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+        .status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-badge.open {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.assigned {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-badge.in_progress {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.status-badge.escalated {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.resolved {
+    background: #dcfce7;
+    color: #166534;
+}
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <h1>CampusResolve</h1>
+    <div>
+    <span>Admin Dashboard</span>
+    <button onclick="logout()">Logout</button>
+</div>
+</header>
+
+<main class="container">
+
+    <div class="welcome">
+        <h2>Complaint Overview</h2>
+        <p>Monitor campus complaints and their resolution status.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card total">
+            <h3>Total Complaints</h3>
+            <div class="number" id="total">-</div>
+        </div>
+
+        <div class="card open">
+            <h3>Open</h3>
+            <div class="number" id="open">-</div>
+        </div>
+
+        <div class="card assigned">
+            <h3>Assigned</h3>
+            <div class="number" id="assigned">-</div>
+        </div>
+
+        <div class="card escalated">
+            <h3>Escalated</h3>
+            <div class="number" id="escalated">-</div>
+        </div>
+
+        <div class="card resolved">
+            <h3>Resolved</h3>
+            <div class="number" id="resolved">-</div>
+        </div>
+
+    </div>
+
+    <div class="section">
+       <div class="section">
+    <h2>All Complaints</h2>
+    <button onclick="loadDashboard(); loadComplaints();">
+    Refresh Dashboard
+</button>
+
+    <div id="complaintList">
+        Loading complaints...
+    </div>
+</div>
+    
+
+</main>
+
+<script>
+
+    const API_URL = "http://localhost:8080";
+
+    async function loadDashboard() {
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("Please login as Admin first.");
+            return;
+        }
+
+        try {
+
+            const totalResponse = await fetch(
+                API_URL + "/api/authority/dashboard/total",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            const openResponse = await fetch(
+                API_URL + "/api/authority/dashboard/open",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            const assignedResponse = await fetch(
+                API_URL + "/api/authority/dashboard/assigned",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            const escalatedResponse = await fetch(
+                API_URL + "/api/authority/dashboard/escalated",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            const resolvedResponse = await fetch(
+                API_URL + "/api/authority/dashboard/resolved",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                }
+            );
+
+            document.getElementById("total").innerText =
+                await totalResponse.text();
+
+            document.getElementById("open").innerText =
+                await openResponse.text();
+
+            document.getElementById("assigned").innerText =
+                await assignedResponse.text();
+
+            document.getElementById("escalated").innerText =
+                await escalatedResponse.text();
+
+            document.getElementById("resolved").innerText =
+                await resolvedResponse.text();
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Unable to load dashboard data.");
+
+        }
+    }
+
+    loadDashboard();
+
+    async function loadComplaints() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/authority/all-complaints",
+            {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load complaints");
+        }
+
+        const complaints = await response.json();
+
+        const complaintList =
+            document.getElementById("complaintList");
+
+        if (complaints.length === 0) {
+            complaintList.innerHTML =
+                "<p>No complaints found.</p>";
+            return;
+        }
+
+        complaintList.innerHTML = complaints.map(c => `
+            <h3>#${c.id} - ${c.title}</h3>
+
+<p>${c.description}</p>
+
+<p>
+    <strong>Escalation Level:</strong> ${c.escalationLevel}
+</p>
+
+                <p>
+                    <strong>Category:</strong> ${c.category}
+                </p>
+
+                <p>
+                    <strong>Priority:</strong> ${c.priority}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+<span class="status-badge ${c.status.toLowerCase()}">
+    ${c.status}
+</span>
+                </p>
+
+                <p>
+                    <strong>Department:</strong> ${c.department}
+                </p>
+
+                <p>
+                    <strong>Location:</strong> ${c.location}
+                </p>
+                <p>
+    <strong>Deadline:</strong> ${new Date(c.deadline).toLocaleString()}
+</p>
+            </div>
+        `).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("complaintList").innerText =
+            "Unable to load complaints.";
+    }
+}
+
+loadComplaints();
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
