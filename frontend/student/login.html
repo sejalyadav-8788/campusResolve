@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
         body {
@@ -19,108 +19,274 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #f1f5f9;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #4f46e5;
+            color: white;
+
+            border-radius: 16px;
+
+            font-size: 24px;
+            font-weight: 800;
+
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+        }
+
+        .brand h1 {
+            color: #172033;
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .brand p {
+            color: #64748b;
+            font-size: 14px;
         }
 
         .login-box {
-            width: 400px;
             background: white;
             padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 18px;
+
+            box-shadow:
+                0 20px 45px rgba(15, 23, 42, 0.10);
+
+            border: 1px solid #e2e8f0;
         }
 
-        h1 {
-            text-align: center;
+        .login-title {
             color: #1e293b;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 6px;
         }
 
-        .subtitle {
-            text-align: center;
+        .login-subtitle {
             color: #64748b;
-            margin-bottom: 30px;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
+            padding: 13px 14px;
+
             border: 1px solid #cbd5e1;
-            border-radius: 7px;
+            border-radius: 9px;
+
             font-size: 15px;
+            color: #1e293b;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+
+            box-shadow:
+                0 0 0 3px rgba(79, 70, 229, 0.10);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
         }
 
         button {
             width: 100%;
-            padding: 13px;
+            padding: 14px;
+
             border: none;
-            border-radius: 7px;
-            background: #1e293b;
+            border-radius: 9px;
+
+            background: #4f46e5;
             color: white;
-            font-size: 16px;
+
+            font-size: 15px;
+            font-weight: 600;
+
             cursor: pointer;
+
+            transition: 0.2s;
+
+            margin-top: 5px;
         }
 
         button:hover {
-            background: #334155;
+            background: #4338ca;
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 18px rgba(79, 70, 229, 0.22);
+        }
+
+        button:disabled {
+            background: #a5b4fc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         #message {
-            margin-top: 15px;
+            display: none;
+
+            margin-top: 16px;
+            padding: 11px 12px;
+
+            border-radius: 8px;
+
+            background: #fef2f2;
+            color: #dc2626;
+
             text-align: center;
-            color: red;
+            font-size: 14px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 480px) {
+
+            .login-box {
+                padding: 28px 22px;
+            }
+
+            .brand h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="login-container">
 
-    <h1>CampusResolve</h1>
+    <!-- Brand -->
+    <div class="brand">
 
-    <p class="subtitle">Student Login</p>
+        <div class="brand-icon">
+            CR
+        </div>
 
-    <form id="loginForm">
+        <h1>CampusResolve</h1>
 
-        <label>Email</label>
+        <p>Campus grievance resolution platform</p>
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-        >
+    </div>
 
-        <label>Password</label>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-        >
+    <!-- Login Card -->
+    <div class="login-box">
 
-        <button type="submit">
-            Login
-        </button>
+        <h2 class="login-title">
+            Student Login
+        </h2>
 
-    </form>
+        <p class="login-subtitle">
+            Sign in to submit and track your campus complaints.
+        </p>
 
-    <div id="message"></div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="loginButton"
+            >
+                Login to CampusResolve
+            </button>
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <p class="footer-text">
+        CampusResolve • Making campus issues easier to resolve
+    </p>
 
 </div>
+
 
 <script>
 
     const API_URL = "http://localhost:8080";
+
 
     document.getElementById("loginForm").addEventListener(
         "submit",
@@ -128,14 +294,29 @@
 
             event.preventDefault();
 
+
             const email =
-                document.getElementById("email").value;
+                document.getElementById("email").value.trim();
 
             const password =
                 document.getElementById("password").value;
 
             const message =
                 document.getElementById("message");
+
+            const loginButton =
+                document.getElementById("loginButton");
+
+
+            // Clear previous message
+            message.innerText = "";
+            message.style.display = "none";
+
+
+            // Disable button while logging in
+            loginButton.disabled = true;
+            loginButton.innerText = "Signing in...";
+
 
             try {
 
@@ -155,25 +336,61 @@
                     }
                 );
 
+
                 if (!response.ok) {
+
                     message.innerText =
                         "Invalid email or password.";
+
+                    message.style.display = "block";
+
+                    loginButton.disabled = false;
+                    loginButton.innerText =
+                        "Login to CampusResolve";
+
                     return;
                 }
 
-                const token = await response.text();
 
-                localStorage.setItem("studentToken", token);
+                const token =
+                    await response.text();
 
-                window.location.href = "dashboard.html";
 
-            } catch (error) {
+                // Keep the existing backend authentication behavior
+                localStorage.setItem(
+                    "studentToken",
+                    token
+                );
 
-                console.error(error);
+
+                // Redirect to Student Dashboard
+                window.location.href =
+                    "dashboard.html";
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
 
                 message.innerText =
-                    "Cannot connect to the server.";
+                    "Cannot connect to the server. Please try again.";
+
+                message.style.display =
+                    "block";
+
+                loginButton.disabled =
+                    false;
+
+                loginButton.innerText =
+                    "Login to CampusResolve";
             }
+
         }
     );
 

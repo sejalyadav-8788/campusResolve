@@ -1,419 +1,1884 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CampusResolve - Admin Dashboard</title>
+    <title>CampusResolve | Admin Dashboard</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
         body {
-            background: #f4f6f9;
-            color: #222;
+            background: #f5f7fb;
+            color: #172033;
         }
+
+
+        /* ================= HEADER ================= */
 
         .header {
-            background: #1e293b;
+            height: 72px;
+
+            background: #172554;
             color: white;
-            padding: 20px 35px;
+
+            padding: 0 38px;
+
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+
+            box-shadow: 0 3px 12px rgba(15, 23, 42, 0.15);
         }
 
-        .header h1 {
-            font-size: 24px;
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .header span {
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #3b82f6;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+
+        .brand h1 {
+            font-size: 21px;
+            letter-spacing: 0.2px;
+        }
+
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+
+        .admin-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
             font-size: 14px;
-            opacity: 0.8;
+            color: #dbeafe;
         }
+
+
+        .online-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+        }
+
+
+        .logout-btn {
+            border: none;
+
+            background: #ef4444;
+            color: white;
+
+            padding: 9px 17px;
+
+            border-radius: 7px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+            background: #dc2626;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ================= MAIN ================= */
 
         .container {
-            padding: 35px;
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 35px 28px 50px;
         }
+
 
         .welcome {
-            margin-bottom: 30px;
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-end;
+
+            margin-bottom: 28px;
         }
 
+
         .welcome h2 {
-            margin-bottom: 8px;
+            font-size: 28px;
+
+            color: #172033;
+
+            margin-bottom: 7px;
         }
+
 
         .welcome p {
             color: #64748b;
+
+            font-size: 15px;
         }
+
+
+        .date {
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= STATISTICS ================= */
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+
+            grid-template-columns: repeat(5, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 28px;
         }
+
 
         .card {
             background: white;
-            padding: 25px;
+
+            padding: 20px;
+
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 3px 10px rgba(15, 23, 42, 0.05);
+
+            transition: 0.2s;
         }
 
-        .card h3 {
-            color: #64748b;
-            font-size: 15px;
+
+        .card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px rgba(15, 23, 42, 0.08);
+        }
+
+
+        .card-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
             margin-bottom: 15px;
         }
 
+
+        .card h3 {
+            color: #64748b;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .card-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+        }
+
+
+        .icon-total {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+
+        .icon-open {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+
+        .icon-assigned {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+
+        .icon-escalated {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+
+        .icon-resolved {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+
         .number {
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 28px;
+
+            font-weight: 700;
+
+            color: #172033;
         }
 
-        .total {
-            border-left: 5px solid #334155;
-        }
 
-        .open {
-            border-left: 5px solid #f59e0b;
-        }
-
-        .assigned {
-            border-left: 5px solid #3b82f6;
-        }
-
-        .escalated {
-            border-left: 5px solid #ef4444;
-        }
-
-        .resolved {
-            border-left: 5px solid #22c55e;
-        }
+        /* ================= SECTION ================= */
 
         .section {
-            margin-top: 35px;
             background: white;
-            padding: 25px;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 3px 12px rgba(15, 23, 42, 0.05);
+
+            overflow: hidden;
+        }
+
+
+        .section-header {
+            padding: 22px 25px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .section-header h2 {
+            font-size: 19px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .section-header p {
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        .refresh-btn {
+            border: 1px solid #bfdbfe;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 8px 14px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .refresh-btn:hover {
+            background: #dbeafe;
+        }
+
+
+        /* ================= FILTERS ================= */
+
+        .filters {
+            padding: 18px 25px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .search-box {
+            flex: 1;
+
+            min-width: 220px;
+        }
+
+
+        .search-box input,
+        .filters select {
+
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 7px;
+
+            background: white;
+
+            color: #334155;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+
+        .search-box input:focus,
+        .filters select:focus {
+
+            border-color: #3b82f6;
+
+            box-shadow:
+                0 0 0 3px rgba(59, 130, 246, 0.08);
+        }
+
+
+        .status-filter {
+            width: 170px;
+        }
+
+
+        /* ================= COMPLAINT LIST ================= */
+
+        #complaintList {
+            padding: 23px 25px;
+        }
+
+
+        .complaint {
+            border: 1px solid #e2e8f0;
+
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+            padding: 21px;
+
+            margin-bottom: 16px;
+
+            background: white;
+
+            transition: 0.2s;
         }
 
-        .section h2 {
-            margin-bottom: 10px;
+
+        .complaint:hover {
+            border-color: #bfdbfe;
+
+            box-shadow:
+                0 5px 18px rgba(37, 99, 235, 0.07);
         }
 
-        .section p {
+
+        .complaint:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .complaint-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .complaint-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .complaint-number {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 9px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            flex-shrink: 0;
+        }
+
+
+        .complaint h3 {
+            font-size: 16px;
+
+            color: #172033;
+
+            line-height: 1.4;
+        }
+
+
+        .complaint-description {
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin: 10px 0 18px;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .status-badge.open {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+
+        .status-badge.assigned {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+
+        .status-badge.in_progress {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+
+        .status-badge.escalated {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
+        .status-badge.resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+
+        /* ================= DETAILS ================= */
+
+        .details-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .detail {
+
+            background: #f8fafc;
+
+            padding: 10px 12px;
+
+            border-radius: 8px;
+        }
+
+
+        .detail-label {
+
+            display: block;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .detail-value {
+
+            color: #334155;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .priority-high {
+            color: #dc2626;
+        }
+
+
+        .priority-medium {
+            color: #d97706;
+        }
+
+
+        .priority-low {
+            color: #16a34a;
+        }
+
+
+        /* ================= ESCALATION ================= */
+
+        .escalation-high {
+
+            color: #dc2626;
+
+        }
+
+
+        /* ================= EMPTY STATE ================= */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 55px 20px;
+
             color: #64748b;
         }
-        .complaint {
-    border: 1px solid #e2e8f0;
-    padding: 20px;
-    margin-top: 15px;
-    border-radius: 10px;
-    background: #f8fafc;
-}
 
-.complaint h3 {
-    margin-bottom: 12px;
-}
 
-.complaint p {
-    margin: 7px 0;
-    color: #475569;
-}
+        .empty-icon {
 
-        @media (max-width: 900px) {
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            width: 60px;
+            height: 60px;
+
+            margin: auto auto 15px;
+
+            border-radius: 50%;
+
+            background: #f1f5f9;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
         }
 
-        @media (max-width: 600px) {
+
+        .empty-state h3 {
+
+            color: #334155;
+
+            margin-bottom: 6px;
+        }
+
+
+        /* ================= LOADING ================= */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 45px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .error-message {
+
+            text-align: center;
+
+            padding: 35px;
+
+            color: #dc2626;
+
+            background: #fef2f2;
+
+            border-radius: 9px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+
             .cards {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+            .details-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .header {
+
+                padding: 0 18px;
+
+            }
+
+            .admin-badge {
+
+                display: none;
+
             }
 
             .container {
-                padding: 20px;
+
+                padding: 25px 15px 40px;
+
             }
+
+            .welcome {
+
+                display: block;
+
+            }
+
+            .date {
+
+                margin-top: 8px;
+
+            }
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .section-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+            .refresh-btn {
+
+                width: 100%;
+
+            }
+
         }
-        .status-badge {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-}
 
-.status-badge.open {
-    background: #fef3c7;
-    color: #92400e;
-}
 
-.status-badge.assigned {
-    background: #dbeafe;
-    color: #1e40af;
-}
+        @media (max-width: 520px) {
 
-.status-badge.in_progress {
-    background: #e0e7ff;
-    color: #3730a3;
-}
+            .brand h1 {
 
-.status-badge.escalated {
-    background: #fee2e2;
-    color: #991b1b;
-}
+                font-size: 18px;
 
-.status-badge.resolved {
-    background: #dcfce7;
-    color: #166534;
-}
+            }
+
+            .logout-btn {
+
+                padding: 8px 12px;
+
+            }
+
+            .cards {
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px;
+
+            }
+
+            .card {
+
+                padding: 15px;
+
+            }
+
+            .number {
+
+                font-size: 23px;
+
+            }
+
+            .details-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .complaint-top {
+
+                flex-direction: column;
+
+            }
+
+            .filters {
+
+                padding: 15px;
+
+            }
+
+            #complaintList {
+
+                padding: 15px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ================= HEADER ================= -->
+
 <header class="header">
-    <h1>CampusResolve</h1>
-    <div>
-    <span>Admin Dashboard</span>
-    <button onclick="logout()">Logout</button>
-</div>
+
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            CR
+        </div>
+
+        <h1>CampusResolve</h1>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="admin-badge">
+
+            <span class="online-dot"></span>
+
+            Admin Portal
+
+        </div>
+
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
 </header>
+
+
+
+<!-- ================= MAIN ================= -->
 
 <main class="container">
 
+
+    <!-- Welcome -->
+
     <div class="welcome">
-        <h2>Complaint Overview</h2>
-        <p>Monitor campus complaints and their resolution status.</p>
+
+        <div>
+
+            <h2>Admin Dashboard</h2>
+
+            <p>
+                Monitor campus complaints and oversee their resolution.
+            </p>
+
+        </div>
+
+
+        <div
+            class="date"
+            id="currentDate">
+        </div>
+
     </div>
+
+
+
+    <!-- ================= STATISTICS ================= -->
 
     <div class="cards">
 
-        <div class="card total">
-            <h3>Total Complaints</h3>
-            <div class="number" id="total">-</div>
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <h3>Total Complaints</h3>
+
+                <div class="card-icon icon-total">
+                    📋
+                </div>
+
+            </div>
+
+            <div
+                class="number"
+                id="total">
+                -
+            </div>
+
         </div>
 
-        <div class="card open">
-            <h3>Open</h3>
-            <div class="number" id="open">-</div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <h3>Open</h3>
+
+                <div class="card-icon icon-open">
+                    ⏳
+                </div>
+
+            </div>
+
+            <div
+                class="number"
+                id="open">
+                -
+            </div>
+
         </div>
 
-        <div class="card assigned">
-            <h3>Assigned</h3>
-            <div class="number" id="assigned">-</div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <h3>Assigned</h3>
+
+                <div class="card-icon icon-assigned">
+                    👤
+                </div>
+
+            </div>
+
+            <div
+                class="number"
+                id="assigned">
+                -
+            </div>
+
         </div>
 
-        <div class="card escalated">
-            <h3>Escalated</h3>
-            <div class="number" id="escalated">-</div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <h3>Escalated</h3>
+
+                <div class="card-icon icon-escalated">
+                    ⚠
+                </div>
+
+            </div>
+
+            <div
+                class="number"
+                id="escalated">
+                -
+            </div>
+
         </div>
 
-        <div class="card resolved">
-            <h3>Resolved</h3>
-            <div class="number" id="resolved">-</div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <h3>Resolved</h3>
+
+                <div class="card-icon icon-resolved">
+                    ✓
+                </div>
+
+            </div>
+
+            <div
+                class="number"
+                id="resolved">
+                -
+            </div>
+
         </div>
+
 
     </div>
 
-    <div class="section">
-       <div class="section">
-    <h2>All Complaints</h2>
-    <button onclick="loadDashboard(); loadComplaints();">
-    Refresh Dashboard
-</button>
 
-    <div id="complaintList">
-        Loading complaints...
-    </div>
-</div>
-    
+
+    <!-- ================= COMPLAINT SECTION ================= -->
+
+    <section class="section">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>All Complaints</h2>
+
+                <p>
+                    View and monitor every complaint submitted on CampusResolve.
+                </p>
+
+            </div>
+
+
+            <button
+                class="refresh-btn"
+                onclick="refreshDashboard()">
+
+                ↻ Refresh Dashboard
+
+            </button>
+
+        </div>
+
+
+
+        <!-- Filters -->
+
+        <div class="filters">
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search complaints by title, category, location..."
+                    oninput="filterComplaints()"
+                >
+
+            </div>
+
+
+            <div class="status-filter">
+
+                <select
+                    id="statusFilter"
+                    onchange="filterComplaints()">
+
+                    <option value="ALL">
+                        All Statuses
+                    </option>
+
+                    <option value="OPEN">
+                        Open
+                    </option>
+
+                    <option value="ASSIGNED">
+                        Assigned
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        In Progress
+                    </option>
+
+                    <option value="ESCALATED">
+                        Escalated
+                    </option>
+
+                    <option value="RESOLVED">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Complaint List -->
+
+        <div id="complaintList">
+
+            <div class="loading">
+
+                Loading complaints...
+
+            </div>
+
+        </div>
+
+
+    </section>
+
 
 </main>
 
+
+
 <script>
 
-    const API_URL = "http://localhost:8080";
+
+    /* ================= CONFIG ================= */
+
+    const API_URL =
+        "http://localhost:8080";
+
+
+    let allComplaints = [];
+
+
+
+    /* ================= DATE ================= */
+
+    document.getElementById(
+        "currentDate"
+    ).innerText =
+
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+
+    /* ================= DASHBOARD ================= */
 
     async function loadDashboard() {
 
-        const token = localStorage.getItem("token");
+
+        const token =
+            localStorage.getItem("token");
+
 
         if (!token) {
-            alert("Please login as Admin first.");
+
+            alert(
+                "Please login as Admin first."
+            );
+
+            window.location.href =
+                "login.html";
+
             return;
+
         }
+
+
 
         try {
 
-            const totalResponse = await fetch(
-                API_URL + "/api/authority/dashboard/total",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                }
-            );
 
-            const openResponse = await fetch(
-                API_URL + "/api/authority/dashboard/open",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                }
-            );
+            const headers = {
 
-            const assignedResponse = await fetch(
-                API_URL + "/api/authority/dashboard/assigned",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                }
-            );
+                "Authorization":
+                    "Bearer " + token
 
-            const escalatedResponse = await fetch(
-                API_URL + "/api/authority/dashboard/escalated",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                }
-            );
+            };
 
-            const resolvedResponse = await fetch(
-                API_URL + "/api/authority/dashboard/resolved",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                }
-            );
+
+
+            const [
+
+                totalResponse,
+
+                openResponse,
+
+                assignedResponse,
+
+                escalatedResponse,
+
+                resolvedResponse
+
+            ] = await Promise.all([
+
+                fetch(
+                    API_URL +
+                    "/api/authority/dashboard/total",
+                    { headers }
+                ),
+
+                fetch(
+                    API_URL +
+                    "/api/authority/dashboard/open",
+                    { headers }
+                ),
+
+                fetch(
+                    API_URL +
+                    "/api/authority/dashboard/assigned",
+                    { headers }
+                ),
+
+                fetch(
+                    API_URL +
+                    "/api/authority/dashboard/escalated",
+                    { headers }
+                ),
+
+                fetch(
+                    API_URL +
+                    "/api/authority/dashboard/resolved",
+                    { headers }
+                )
+
+            ]);
+
+
+
+            if (
+
+                !totalResponse.ok ||
+                !openResponse.ok ||
+                !assignedResponse.ok ||
+                !escalatedResponse.ok ||
+                !resolvedResponse.ok
+
+            ) {
+
+                throw new Error(
+                    "Unable to load dashboard statistics."
+                );
+
+            }
+
+
 
             document.getElementById("total").innerText =
                 await totalResponse.text();
 
+
             document.getElementById("open").innerText =
                 await openResponse.text();
+
 
             document.getElementById("assigned").innerText =
                 await assignedResponse.text();
 
+
             document.getElementById("escalated").innerText =
                 await escalatedResponse.text();
+
 
             document.getElementById("resolved").innerText =
                 await resolvedResponse.text();
 
-        } catch (error) {
+
+        }
+
+        catch (error) {
 
             console.error(error);
 
-            alert("Unable to load dashboard data.");
+            document.getElementById("total").innerText = "—";
+            document.getElementById("open").innerText = "—";
+            document.getElementById("assigned").innerText = "—";
+            document.getElementById("escalated").innerText = "—";
+            document.getElementById("resolved").innerText = "—";
+
+            alert(
+                "Unable to load dashboard data."
+            );
 
         }
+
     }
 
-    loadDashboard();
+
+
+    /* ================= LOAD COMPLAINTS ================= */
 
     async function loadComplaints() {
 
-    const token = localStorage.getItem("token");
 
-    if (!token) {
-        return;
-    }
+        const token =
+            localStorage.getItem("token");
 
-    try {
 
-        const response = await fetch(
-            API_URL + "/api/authority/all-complaints",
-            {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            }
-        );
+        if (!token) {
 
-        if (!response.ok) {
-            throw new Error("Failed to load complaints");
+            return;
+
         }
 
-        const complaints = await response.json();
 
         const complaintList =
-            document.getElementById("complaintList");
+            document.getElementById(
+                "complaintList"
+            );
 
-        if (complaints.length === 0) {
-            complaintList.innerHTML =
-                "<p>No complaints found.</p>";
-            return;
+
+        complaintList.innerHTML = `
+
+            <div class="loading">
+
+                Loading complaints...
+
+            </div>
+
+        `;
+
+
+        try {
+
+
+            const response = await fetch(
+
+                API_URL +
+                "/api/authority/all-complaints",
+
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    }
+
+                }
+
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load complaints."
+                );
+
+            }
+
+
+            const complaints =
+                await response.json();
+
+
+            allComplaints =
+                complaints || [];
+
+
+            filterComplaints();
+
+
         }
 
-        complaintList.innerHTML = complaints.map(c => `
-            <h3>#${c.id} - ${c.title}</h3>
+        catch (error) {
 
-<p>${c.description}</p>
+            console.error(error);
 
-<p>
-    <strong>Escalation Level:</strong> ${c.escalationLevel}
-</p>
 
-                <p>
-                    <strong>Category:</strong> ${c.category}
-                </p>
+            complaintList.innerHTML = `
 
-                <p>
-                    <strong>Priority:</strong> ${c.priority}
-                </p>
+                <div class="error-message">
 
-                <p>
-                    <strong>Status:</strong>
-<span class="status-badge ${c.status.toLowerCase()}">
-    ${c.status}
-</span>
-                </p>
+                    Unable to load complaints.
+                    Please try refreshing the dashboard.
 
-                <p>
-                    <strong>Department:</strong> ${c.department}
-                </p>
+                </div>
 
-                <p>
-                    <strong>Location:</strong> ${c.location}
-                </p>
-                <p>
-    <strong>Deadline:</strong> ${new Date(c.deadline).toLocaleString()}
-</p>
-            </div>
-        `).join("");
+            `;
 
-    } catch (error) {
+        }
 
-        console.error(error);
-
-        document.getElementById("complaintList").innerText =
-            "Unable to load complaints.";
     }
-}
 
-loadComplaints();
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-}
+
+
+    /* ================= FILTER ================= */
+
+    function filterComplaints() {
+
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const selectedStatus =
+            document
+                .getElementById("statusFilter")
+                .value;
+
+
+        const filtered =
+            allComplaints.filter(c => {
+
+
+                const searchableText = (
+
+                    (c.title || "") +
+                    " " +
+                    (c.description || "") +
+                    " " +
+                    (c.category || "") +
+                    " " +
+                    (c.department || "") +
+                    " " +
+                    (c.location || "")
+
+                ).toLowerCase();
+
+
+                const matchesSearch =
+                    searchableText.includes(search);
+
+
+                const complaintStatus =
+                    String(
+                        c.status || ""
+                    ).toUpperCase();
+
+
+                const matchesStatus =
+
+                    selectedStatus === "ALL" ||
+                    complaintStatus === selectedStatus;
+
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+
+            });
+
+
+        renderComplaints(filtered);
+
+    }
+
+
+
+    /* ================= RENDER ================= */
+
+    function renderComplaints(
+        complaints
+    ) {
+
+
+        const complaintList =
+            document.getElementById(
+                "complaintList"
+            );
+
+
+        if (
+            !complaints ||
+            complaints.length === 0
+        ) {
+
+
+            complaintList.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        ✓
+                    </div>
+
+                    <h3>No complaints found</h3>
+
+                    <p>
+                        No complaints match the current search or filter.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        complaintList.innerHTML =
+
+            complaints.map(
+                (c, index) =>
+                    createComplaintCard(c, index)
+            ).join("");
+
+    }
+
+
+
+    /* ================= COMPLAINT CARD ================= */
+
+    function createComplaintCard(
+        c,
+        index
+    ) {
+
+
+        const status =
+            String(
+                c.status || "OPEN"
+            ).toUpperCase();
+
+
+        const priority =
+            String(
+                c.priority || "NORMAL"
+            ).toUpperCase();
+
+
+        let priorityClass =
+            "priority-medium";
+
+
+        if (priority === "HIGH") {
+
+            priorityClass =
+                "priority-high";
+
+        }
+
+        else if (priority === "LOW") {
+
+            priorityClass =
+                "priority-low";
+
+        }
+
+
+
+        const escalation =
+            c.escalationLevel ??
+            "N/A";
+
+
+
+        const deadline =
+            c.deadline
+
+                ? new Date(
+                    c.deadline
+                ).toLocaleString("en-IN")
+
+                : "Not assigned";
+
+
+
+        const title =
+            escapeHtml(
+                c.title || "Untitled Complaint"
+            );
+
+
+        const description =
+            escapeHtml(
+                c.description ||
+                "No description provided."
+            );
+
+
+        const category =
+            escapeHtml(
+                c.category || "N/A"
+            );
+
+
+        const department =
+            escapeHtml(
+                c.department || "N/A"
+            );
+
+
+        const location =
+            escapeHtml(
+                c.location || "N/A"
+            );
+
+
+
+        return `
+
+            <div class="complaint">
+
+
+                <div class="complaint-top">
+
+
+                    <div class="complaint-title">
+
+
+                        <div class="complaint-number">
+
+                            #${c.id}
+
+                        </div>
+
+
+                        <h3>
+
+                            ${title}
+
+                        </h3>
+
+
+                    </div>
+
+
+                    <span
+                        class="status-badge ${status.toLowerCase()}">
+
+                        ${formatStatus(status)}
+
+                    </span>
+
+
+                </div>
+
+
+
+                <p class="complaint-description">
+
+                    ${description}
+
+                </p>
+
+
+
+                <div class="details-grid">
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Category
+                        </span>
+
+                        <span class="detail-value">
+                            ${category}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Priority
+                        </span>
+
+                        <span class="detail-value ${priorityClass}">
+                            ${priority}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Department
+                        </span>
+
+                        <span class="detail-value">
+                            ${department}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Location
+                        </span>
+
+                        <span class="detail-value">
+                            ${location}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Escalation Level
+                        </span>
+
+                        <span class="detail-value">
+                            ${escapeHtml(String(escalation))}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="detail">
+
+                        <span class="detail-label">
+                            Deadline
+                        </span>
+
+                        <span class="detail-value">
+                            ${deadline}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    /* ================= FORMAT STATUS ================= */
+
+    function formatStatus(
+        status
+    ) {
+
+
+        return status
+            .replaceAll("_", " ")
+            .replace(
+                /\b\w/g,
+                letter =>
+                    letter.toUpperCase()
+            );
+
+    }
+
+
+
+    /* ================= ESCAPE HTML ================= */
+
+    function escapeHtml(
+        value
+    ) {
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            value;
+
+
+        return div.innerHTML;
+
+    }
+
+
+
+    /* ================= REFRESH ================= */
+
+    async function refreshDashboard() {
+
+
+        const button =
+            document.querySelector(
+                ".refresh-btn"
+            );
+
+
+        button.disabled = true;
+
+        button.innerText =
+            "Refreshing...";
+
+
+        await Promise.all([
+
+            loadDashboard(),
+
+            loadComplaints()
+
+        ]);
+
+
+        button.disabled = false;
+
+        button.innerText =
+            "↻ Refresh Dashboard";
+
+    }
+
+
+
+    /* ================= LOGOUT ================= */
+
+    function logout() {
+
+
+        localStorage.removeItem(
+            "token"
+        );
+
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+
+    /* ================= START ================= */
+
+    loadDashboard();
+
+    loadComplaints();
+
 
 </script>
 
+
 </body>
+
 </html>

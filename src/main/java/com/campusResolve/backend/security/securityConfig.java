@@ -87,6 +87,10 @@ public class securityConfig {
                         ).permitAll()
 
                         .requestMatchers(
+                                "/api/files/upload"
+                        ).authenticated()
+
+                        .requestMatchers(
                                 "/api/**"
                         ).authenticated()
 

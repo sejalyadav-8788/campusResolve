@@ -38,6 +38,7 @@ public class complaint {
 
     private Long assignedAuthorityId;
     private int escalationLevel;
+    private String attachmentKey;
 
     public complaint() {
     }
@@ -155,5 +156,12 @@ public class complaint {
 
     public void setEscalationLevel(int escalationLevel) {
         this.escalationLevel = escalationLevel;
+    }
+    public String getAttachmentKey() {
+        return attachmentKey;
+    }
+
+    public void setAttachmentKey(String attachmentKey) {
+        this.attachmentKey = attachmentKey;
     }
 }

@@ -6,6 +6,7 @@ import com.campusResolve.backend.service.complaintService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/complaints")
@@ -25,27 +26,34 @@ public class complaintController {
                 + "! JWT authentication is working.";
     }
 
-    @PostMapping
+    @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<complaint> createComplaint(
-            @RequestBody complaintRequest request,
+            @RequestPart("complaint") complaintRequest request,
+            @RequestPart(value = "file", required = false) MultipartFile file,
             Authentication authentication) {
 
-        complaint newComplaint = complaintService.createComplaint(
-                request,
-                authentication.getName()
-        );
+        complaint newComplaint =
+                complaintService.createComplaint(
+                        request,
+                        authentication.getName(),
+                        file
+                );
 
         return ResponseEntity.ok(newComplaint);
     }
+
     @GetMapping("/my")
     public ResponseEntity<java.util.List<complaint>> getMyComplaints(
             Authentication authentication) {
 
         java.util.List<complaint> complaints =
-                complaintService.getMyComplaints(authentication.getName());
+                complaintService.getMyComplaints(
+                        authentication.getName()
+                );
 
         return ResponseEntity.ok(complaints);
     }
+
     @PutMapping("/{id}/status")
     public ResponseEntity<complaint> updateStatus(
             @PathVariable Long id,

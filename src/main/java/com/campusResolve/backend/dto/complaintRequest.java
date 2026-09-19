@@ -10,6 +10,7 @@ public class complaintRequest {
     private boolean sensitive;
     private String department;
     private String location;
+    private String attachmentKey;
 
     public complaintRequest() {
     }
@@ -76,5 +77,12 @@ public class complaintRequest {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public String getAttachmentKey() {
+        return attachmentKey;
+    }
+
+    public void setAttachmentKey(String attachmentKey) {
+        this.attachmentKey = attachmentKey;
     }
 }
