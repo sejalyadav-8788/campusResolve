@@ -94,6 +94,7 @@ public class securityConfig {
                         .anyRequest().authenticated()
                 )
 
+
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
